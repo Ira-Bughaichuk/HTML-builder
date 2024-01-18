@@ -23,7 +23,8 @@ async function readDirectory() {
 async function getStats(filePath, fileName, typeFile){
     try {
         const fileStats = await fs.stat(filePath);
-        console.log(`File ${fileName} and its expansion ${typeFile} has stats: ${JSON.stringify(fileStats, null, 2)}`);
+        // console.log(`File ${fileName} and its expansion ${typeFile} has stats: ${JSON.stringify(fileStats, null, 2)}`);
+        console.log(`${fileName} - ${typeFile} - ${fileStats.size}`);
     } catch (err) {
         console.error(`Error getting stats for file ${fileName}: ${err}`);
     }
