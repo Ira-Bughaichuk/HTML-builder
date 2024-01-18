@@ -1,19 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-const rr = fs.createReadStream(path.join(__dirname, 'text.txt'), { encoding: 'utf-8' });
+const rr = fs.createReadStream(path.join(__dirname, 'text.txt'), {
+  encoding: 'utf-8',
+});
 rr.on('data', (chunk) => {
-    console.log(chunk.toString());
-  });
+  console.log(chunk.toString());
+});
 
-  rr.on('error', (err) => {
-    console.error(`Error reading file: ${err}`);
-  }); 
+rr.on('error', (err) => {
+  console.error(`Error reading file: ${err}`);
+});
 
-  rr.on('end', () => {
-    console.log('Reading finished');
-  }); 
-
+rr.on('end', () => {
+  console.log('Reading finished');
+});
 
 // 1- variant
 /*fs.readFile(path.join(__dirname, 'text.txt'), 'utf-8', (err, data) => {
