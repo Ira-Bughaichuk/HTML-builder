@@ -1,26 +1,28 @@
+
 const fs = require('fs');
 const path = require('path');
+const process = require('process');
+const readline = require('readline');
 
-const ws = fs.createWriteStream(path.join(__dirname, 'new-text.txt'), {
-  flags: 'a',
-});
-const rs = fs.createReadStream(path.join(__dirname, 'new-text.txt'), {
-  encoding: 'utf-8',
+
+const filePath = path.join(__dirname, 'text.txt');
+const writeableStream = fs.createWriteStream(filePath);
+
+const wr = readline.createInterface(process.stdin, process.stdout);
+
+wr.setPrompt('Hello, it is new text !');
+wr.prompt();
+
+wr.on('line', (input) => {
+    if (!input.includes('exit')) {
+        writeableStream.write(`${input}\n`);
+    } else {
+        rl.close()
+    }
 });
 
-ws.write('Hello, it is new text ! ');
-ws.write('All are good now !');
-ws.end();
-
-rs.on('data', (chunk) => {
-  console.log(chunk.toString());
+wr.on('close', () => {
+    console.log('\nWriting finished');
 });
 
-rs.on('error', (err) => {
-  console.error(`Error reading file: ${err}`);
-});
-
-rs.on('end', () => {
-  console.log('Writing finished');
-});
 
